@@ -1,7 +1,7 @@
 """Documentation Generator - Auto-generate project documentation."""
 
 import logging
-from typing import Dict, List
+from typing import Any, Dict, List
 
 logger = logging.getLogger(__name__)
 
@@ -9,10 +9,10 @@ logger = logging.getLogger(__name__)
 class DocumentationGenerator:
     """Generate comprehensive project documentation"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         logger.debug("DocumentationGenerator initialized")
 
-    def generate_comprehensive_readme(self, project: Dict) -> str:
+    def generate_comprehensive_readme(self, project: Dict[str, Any]) -> str:
         """Generate comprehensive README"""
         name = project.get("name", "Project")
         description = project.get("description", "")
@@ -35,7 +35,7 @@ class DocumentationGenerator:
 
         return readme
 
-    def generate_api_documentation(self, code_structure: Dict) -> str:
+    def generate_api_documentation(self, code_structure: Dict[str, Any]) -> str:
         """Generate API documentation"""
         doc = "# API Reference\n\n"
 
@@ -62,7 +62,7 @@ class DocumentationGenerator:
 
         return doc
 
-    def generate_setup_guide(self, project: Dict) -> str:
+    def generate_setup_guide(self, project: Dict[str, Any]) -> str:
         """Generate setup/installation guide"""
         guide = "# Setup Guide\n\n"
         guide += "## Requirements\n\n"
@@ -78,7 +78,9 @@ class DocumentationGenerator:
 
         return guide
 
-    def generate_all(self, project: Dict, code_structure: Dict) -> Dict[str, str]:
+    def generate_all(
+        self, project: Dict[str, Any], code_structure: Dict[str, Any]
+    ) -> Dict[str, str]:
         """Generate all documentation"""
         return {
             "README.md": self.generate_comprehensive_readme(project),
