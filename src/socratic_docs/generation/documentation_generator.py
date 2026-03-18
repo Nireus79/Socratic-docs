@@ -68,7 +68,8 @@ class DocumentationGenerator:
         guide += "## Requirements\n\n"
         guide += "- Python 3.8+\n\n"
         guide += "## Installation\n\n"
-        guide += "```bash\nclone_url = project.get('repo_url', 'repository')\n"
+        clone_url = project.get('repo_url', 'https://github.com/your-org/your-project')
+        guide += "```bash\n"
         guide += f"git clone {clone_url}\n"
         guide += "cd project\n"
         guide += "pip install -e .\n"
