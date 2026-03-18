@@ -1,7 +1,5 @@
 """Tests for documentation generator."""
 
-import pytest
-
 
 class TestDocumentationGenerator:
     """Test cases for DocumentationGenerator."""
