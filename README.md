@@ -40,6 +40,10 @@ docs = generator.generate_all(project, code_structure)
 # Returns dict with README.md, API.md, ARCHITECTURE.md, SETUP.md
 ```
 
+## Documentation
+
+- **[Documentation Generation Guide](docs/DOCUMENTATION_GENERATION.md)** - Complete guide to automatic documentation generation, including README generation, API documentation, architecture documentation, and setup guides
+
 ## License
 
 MIT
