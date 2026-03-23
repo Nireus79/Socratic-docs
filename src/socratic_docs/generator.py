@@ -3,7 +3,7 @@ Documentation generator from code structure.
 """
 
 import logging
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from .markdown import MarkdownBuilder
 
@@ -21,7 +21,7 @@ class DocumentationGenerator:
     - Setup guides
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the documentation generator."""
         self.builder = MarkdownBuilder()
 
@@ -29,9 +29,9 @@ class DocumentationGenerator:
         self,
         project_name: str,
         description: str,
-        features: List[str] = None,
-        installation: str = None,
-        usage: str = None
+        features: Optional[List[str]] = None,
+        installation: Optional[str] = None,
+        usage: Optional[str] = None
     ) -> str:
         """
         Generate a comprehensive README.

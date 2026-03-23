@@ -37,12 +37,12 @@ class MarkdownBuilder:
         return f"```{language}\n{code}\n```\n\n"
 
     @staticmethod
-    def bullet_list(items: list) -> str:
+    def bullet_list(items: list[str]) -> str:
         """Create a bullet list."""
         return "".join(f"- {item}\n" for item in items) + "\n"
 
     @staticmethod
-    def numbered_list(items: list) -> str:
+    def numbered_list(items: list[str]) -> str:
         """Create a numbered list."""
         return "".join(f"{i+1}. {item}\n" for i, item in enumerate(items)) + "\n"
 
@@ -67,7 +67,7 @@ class MarkdownBuilder:
         return "---\n\n"
 
     @staticmethod
-    def table(headers: list, rows: list) -> str:
+    def table(headers: list[str], rows: list[list[str]]) -> str:
         """Create a markdown table."""
         doc = "| " + " | ".join(headers) + " |\n"
         doc += "| " + " | ".join(["---"] * len(headers)) + " |\n"
