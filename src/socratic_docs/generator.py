@@ -31,7 +31,7 @@ class DocumentationGenerator:
         description: str,
         features: Optional[List[str]] = None,
         installation: Optional[str] = None,
-        usage: Optional[str] = None
+        usage: Optional[str] = None,
     ) -> str:
         """
         Generate a comprehensive README.
@@ -142,8 +142,7 @@ class DocumentationGenerator:
         project_name = project.get("name", "Project")
         doc += self.builder.heading("Installation", 2)
         doc += self.builder.code_block(
-            f"pip install {project_name.lower().replace(' ', '-')}",
-            "bash"
+            f"pip install {project_name.lower().replace(' ', '-')}", "bash"
         )
 
         doc += self.builder.heading("Configuration", 2)
@@ -154,16 +153,14 @@ class DocumentationGenerator:
         doc += self.builder.heading("Quick Start", 2)
         doc += self.builder.code_block(
             f"# Import the package\nfrom {project_name.lower().replace(' ', '_')} import main",
-            "python"
+            "python",
         )
 
         logger.info(f"Generated setup guide for {project_name}")
         return doc
 
     def generate_all(
-        self,
-        project: Dict[str, Any],
-        code_structure: Dict[str, Any]
+        self, project: Dict[str, Any], code_structure: Dict[str, Any]
     ) -> Dict[str, str]:
         """
         Generate all documentation at once.
@@ -182,9 +179,7 @@ class DocumentationGenerator:
                 project.get("features", []),
             ),
             "API.md": self.generate_api_documentation(code_structure),
-            "ARCHITECTURE.md": self.generate_architecture_docs(
-                code_structure.get("modules", [])
-            ),
+            "ARCHITECTURE.md": self.generate_architecture_docs(code_structure.get("modules", [])),
             "SETUP.md": self.generate_setup_guide(project),
         }
 
