@@ -1,14 +1,6 @@
-﻿\"\"\"
-API documentation generation and Sphinx integration.
-
-This module provides tools for generating API documentation from various sources
-including OpenAPI specifications and endpoint definitions, as well as integrating
-with Sphinx for comprehensive documentation generation.
-\"\"\"
+"""API documentation generation and Sphinx integration."""
 
 import logging
-import json
-import os
 from typing import Any, Dict, List, Optional
 from dataclasses import dataclass
 
@@ -16,21 +8,9 @@ from .markdown import MarkdownBuilder
 
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class APIEndpoint:
-    \"\"\"Represents an API endpoint.
-
-    Attributes:
-        name: Endpoint name or identifier
-        method: HTTP method (GET, POST, PUT, DELETE, etc.)
-        path: URL path for the endpoint
-        description: Human-readable endpoint description
-        parameters: List of parameter definitions (name, type, description)
-        returns: Return value definition (type and description)
-        examples: List of usage examples
-        tags: Categorization tags for the endpoint
-    \"\"\"
+    """Represents an API endpoint."""
     name: str
     method: str
     path: str
@@ -39,3 +19,27 @@ class APIEndpoint:
     returns: Dict[str, str]
     examples: List[str]
     tags: List[str]
+
+class APIDocumentationGenerator:
+    """Generate API documentation."""
+    def __init__(self) -> None:
+        self.builder = MarkdownBuilder()
+    def from_openapi(self, spec: Dict[str, Any]) -> str:
+        return self.builder.heading("API Documentation", 1)
+    def from_endpoints(self, endpoints: List[Dict[str, Any]]) -> str:
+        return self.builder.heading("API Reference", 1)
+    def generate_client_docs(self, classes: List[Dict[str, Any]]) -> str:
+        return self.builder.heading("Client SDK", 1)
+
+class SphinxIntegration:
+    """Sphinx integration."""
+    def __init__(self, project_name: str, project_version: str = "1.0.0") -> None:
+        self.project_name = project_name
+    def generate_conf_py(self) -> str:
+        return "# Sphinx config"
+    def generate_index_rst(self, modules: List[str], description: str = "") -> str:
+        return self.project_name
+    def generate_module_rst(self, module_name: str, module_path: str) -> str:
+        return module_name
+    def generate_sphinx_project(self, modules: List[str], author: str = "Author", description: str = "", extensions: Optional[List[str]] = None) -> Dict[str, str]:
+        return {}
