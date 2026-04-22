@@ -1,10 +1,8 @@
-"""Documentation Module - Auto-generate project documentation"""
+"""
+Socratic Docs - Documentation and Parsing
 
-from socratic_docs.api_documentation import APIDocumentationGenerator, SphinxIntegration
-from socratic_docs.generation.documentation_generator import DocumentationGenerator
+Extracted from Socrates v1.3.3
+"""
 
-__all__ = [
-    "DocumentationGenerator",
-    "APIDocumentationGenerator",
-    "SphinxIntegration",
-]
+__version__ = "1.3.3"
+__all__ = []
