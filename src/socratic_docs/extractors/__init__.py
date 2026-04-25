@@ -11,7 +11,6 @@ Main Classes:
 - ExtractionResult: Result of code extraction
 
 Usage:
-    from socratic_system.utils.extractors.registry import LanguageExtractorRegistry
 
     # Get extractor for a language
     extractor = LanguageExtractorRegistry.get_extractor("python")
