@@ -6,5 +6,21 @@ Socratic Docs - Documentation and Parsing
 Extracted from Socrates v1.3.3
 """
 
-__version__ = "1.3.3"
-__all__ = []
+from .artifact_saver import ArtifactSaver
+from .code_extractor import CodeExtractor
+from .documentation_generator import DocumentationGenerator
+from .git_initializer import GitInitializer
+from .git_repository_manager import GitRepositoryManager
+from .multi_file_splitter import MultiFileSplitter
+from .project_templates import ProjectTemplate
+
+__version__ = "0.2.0"
+__all__ = [
+    "ArtifactSaver",
+    "CodeExtractor",
+    "DocumentationGenerator",
+    "GitInitializer",
+    "GitRepositoryManager",
+    "MultiFileSplitter",
+    "ProjectTemplate",
+]
