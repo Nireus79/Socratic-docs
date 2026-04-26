@@ -12,6 +12,9 @@ import ast
 import logging
 from typing import Dict
 
+from .extractors import LanguageExtractorRegistry
+from .project_templates import ProjectTemplateGenerator
+
 logger = logging.getLogger("socrates.utils.multi_file_splitter")
 
 

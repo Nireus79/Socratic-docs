@@ -11,6 +11,8 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
+from .extractors import LanguageExtractorRegistry
+
 logger = logging.getLogger("socrates.utils.artifact_saver")
 
 
