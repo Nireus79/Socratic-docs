@@ -1,244 +1,327 @@
 # socratic-docs Architecture
 
-Documentation generation and management system for Socratic libraries
+Documentation generation and code management library.
 
-## System Architecture
+## System Overview
 
-socratic-docs provides automated documentation generation, management, and deployment for the entire Socratic ecosystem.
+socratic-docs provides a modular pipeline for extracting code information, generating documentation, managing project structure, and integrating with version control.
 
-### Component Overview
+## Pipeline Architecture
 
 ```
-Source Code & Docstrings
+Source Code
     |
-    +-- Python Files
-    +-- Markdown Files
-    +-- Configuration
+    v
+CodeExtractor
     |
-Documentation Extraction
+    +---> Analyze modules, classes, functions
     |
-    +-- Code Parser
-    +-- Docstring Extractor
-    +-- API Signature Analyzer
+    v
+DocumentationGenerator
     |
-Content Generation
+    +---> Generate README.md, API docs, Architecture
     |
-    +-- Doc Generator
-    +-- Example Generator
-    +-- API Reference Generator
+    v
+MultiFileCodeSplitter / ProjectTemplateGenerator
     |
-Documentation Assembly
+    +---> Organize code structure or create templates
     |
-    +-- Content Manager
-    +-- Structure Builder
-    +-- Index Generator
+    v
+ArtifactSaver
     |
-Deployment & Publishing
+    +---> Save files to disk
     |
-    +-- Deployer
-    +-- Version Manager
-    +-- CDN Integration
+    v
+GitRepositoryManager / GitInitializer
+    |
+    +---> Track changes in version control
+    |
+    v
+Documentation Output
 ```
 
 ## Core Components
 
-### 1. Doc Generator
+### 1. CodeExtractor
+Analyzes Python source code and extracts structural information.
 
-**Generates documentation from source**:
-- Parse Python code
-- Extract docstrings
-- Generate API docs
-- Create reference pages
-- Build table of contents
+**Responsibilities**:
+- Parse Python modules and packages
+- Extract class definitions and methods
+- Extract function signatures
+- Extract docstrings and comments
+- Generate code inventory
+- Support for nested packages
 
-### 2. API Extractor
+**Output**:
+```python
+{
+    "modules": [{
+        "name": "module_name",
+        "docstring": "...",
+        "classes": [{
+            "name": "ClassName",
+            "methods": [...],
+            "docstring": "..."
+        }],
+        "functions": [...]
+    }]
+}
+```
 
-**Extracts API definitions**:
-- Parse function signatures
-- Extract parameters
-- Document return types
-- Identify exceptions
-- Extract usage patterns
+### 2. DocumentationGenerator
+Creates comprehensive documentation from code information.
 
-### 3. Example Generator
+**Responsibilities**:
+- Generate README.md files
+- Create API reference documentation
+- Generate architecture documentation
+- Produce setup and installation guides
+- Format docstrings into markdown
+- Create index files
 
-**Creates usage examples**:
-- Extract from docstrings
-- Generate from tests
-- Create tutorials
-- Generate recipes
-- Provide code snippets
+**Output Formats**:
+- README.md - Project overview and quick start
+- API.md - Complete API reference
+- ARCHITECTURE.md - System design and components
+- SETUP.md - Installation and configuration
 
-### 4. Deployer
+### 3. MultiFileCodeSplitter
+Organizes monolithic code into modular structure.
 
-**Manages documentation deployment**:
-- Build documentation
-- Version documentation
-- Deploy to hosting
-- Manage CDN
-- Handle redirects
+**Responsibilities**:
+- Split large files into smaller modules
+- Organize code by functionality
+- Create package structure
+- Generate __init__.py files
+- Preserve code relationships
+- Create organization index
 
-## Documentation Generation Pipeline
+**Supported Strategies**:
+- Split by module/package
+- Split by class/function
+- Split by feature domain
+- Custom splitting logic
 
-1. **Source Analysis**
-   - Scan source files
-   - Parse Python code
-   - Extract docstrings
-   - Analyze structure
+### 4. ProjectTemplateGenerator
+Creates standardized project scaffolding.
 
-2. **API Extraction**
-   - Extract all public APIs
-   - Analyze signatures
-   - Extract documentation
-   - Identify relationships
+**Responsibilities**:
+- Generate project directory structure
+- Create boilerplate files
+- Add configuration files (pyproject.toml, setup.py)
+- Create .gitignore files
+- Generate README templates
+- Support multiple project types
 
-3. **Example Collection**
-   - Mine from docstrings
-   - Extract from tests
-   - Verify examples
-   - Organize examples
+**Supported Templates**:
+- Python Library
+- CLI Tool
+- Web Application
+- Data Science Project
+- Plugin/Extension
 
-4. **Content Generation**
-   - Generate API reference
-   - Create guides
-   - Build tutorials
-   - Generate index
+### 5. ArtifactSaver
+Persists documentation and code artifacts to disk.
 
-5. **Assembly**
-   - Organize content
-   - Create structure
-   - Build navigation
-   - Generate search index
+**Responsibilities**:
+- Write files to specified directories
+- Organize files by category
+- Support multiple formats
+- Create directory structure
+- Generate index files
+- Handle file naming conventions
 
-6. **Deployment**
-   - Build static site
-   - Version documentation
-   - Deploy to servers
-   - Update indexes
+**Supported Formats**:
+- Markdown (.md)
+- Python (.py)
+- Text (.txt)
+- JSON (.json)
+- YAML (.yml)
 
-## Documentation Types
+### 6. GitRepositoryManager
+Manages version control integration.
 
-### API Reference
-- Module overview
-- Class documentation
-- Function documentation
-- Parameter descriptions
-- Return value documentation
+**Responsibilities**:
+- Initialize git repositories
+- Stage and commit changes
+- Push to remote repositories
+- Track documentation changes
+- Generate commit messages
+- Manage branch operations
 
-### User Guides
-- Getting started
-- Installation guide
-- Configuration guide
-- Common tasks
-- Troubleshooting
+**Operations**:
+- git init
+- git add / git commit
+- git push / git pull
+- Branch management
+- Remote configuration
 
-### Developer Documentation
-- Architecture overview
-- Design patterns
-- Contributing guide
-- Code conventions
-- Development setup
+### 7. GitInitializer
+Sets up git repositories for new projects.
 
-### Examples
-- Basic examples
-- Advanced examples
-- Integration examples
-- Real-world scenarios
-- Best practices
+**Responsibilities**:
+- Initialize repository
+- Create initial commit
+- Configure git settings
+- Generate .gitignore
+- Setup remote URLs
+- Create default branches
 
-## Generation Capabilities
+**Capabilities**:
+- Repository initialization
+- User configuration
+- SSH/HTTPS setup
+- License and README creation
+- Initial project structure
 
-### Markdown
-- Automatic generation
-- Custom templates
-- Metadata support
-- Code highlighting
-- Table support
+## Data Flow
 
-### HTML
-- Static site generation
-- Responsive design
-- Search functionality
-- Navigation menus
-- Version switching
+### Extract and Generate Workflow
 
-### Multiple Formats
-- PDF export
-- ePub format
-- Markdown
-- reStructuredText
-- Man pages
+```
+1. Source Code
+        |
+        v
+2. CodeExtractor.extract_from_package()
+        |
+        +---> Classes, functions, docstrings
+        |
+        v
+3. Code Information (structured data)
+        |
+        v
+4. DocumentationGenerator.generate_all()
+        |
+        +---> README.md, API.md, ARCHITECTURE.md
+        |
+        v
+5. Documentation Dictionary
+        |
+        v
+6. ArtifactSaver.save_documents()
+        |
+        +---> Write to disk
+        |
+        v
+7. Files in output_dir/
+```
 
-## Version Management
+### Git Integration Workflow
 
-- Version tracking
-- Multiple versions
-- Version comparison
-- Deprecation notices
-- Migration guides
+```
+1. Documentation Generated
+        |
+        v
+2. ArtifactSaver saves to disk
+        |
+        v
+3. GitRepositoryManager initialized
+        |
+        +---> Points to project repo
+        |
+        v
+4. add_files() stages changes
+        |
+        v
+5. commit() creates git commit
+        |
+        v
+6. (Optional) push() to remote
+```
 
-## Deployment Options
+### Project Scaffolding Workflow
 
-### Static Hosting
-- GitHub Pages
-- ReadTheDocs
-- Netlify
-- CloudFlare Pages
-
-### Dynamic Hosting
-- Self-hosted
-- Container deployment
-- Kubernetes
-- Cloud platforms
-
-## Documentation Features
-
-### Search
-- Full-text search
-- API search
-- Code example search
-- Semantic search
-
-### Navigation
-- Breadcrumbs
-- Sidebar navigation
-- Next/previous links
-- Related content
-
-### Interactive
-- Code playgrounds
-- Search suggestions
-- Version selector
-- Dark mode support
-
-## Quality Assurance
-
-- Documentation validation
-- Link checking
-- Code example verification
-- Spell checking
-- Consistency checks
+```
+1. ProjectTemplateGenerator.generate_template()
+        |
+        +---> Input: project name, type, author
+        |
+        v
+2. Create directory structure
+        |
+        v
+3. Generate boilerplate files
+        |
+        +---> pyproject.toml
+        +---> setup.py (if needed)
+        +---> LICENSE
+        +---> .gitignore
+        |
+        v
+4. Create package directory
+        |
+        v
+5. Initialize git (optional)
+        |
+        v
+6. Output: Ready-to-use project
+```
 
 ## Integration Points
 
-### Source Repositories
-- GitHub
-- GitLab
-- Bitbucket
-- Self-hosted Git
+### With socratic-nexus
+- Use LLM to improve documentation quality
+- Generate better API descriptions
+- Create more comprehensive guides
 
-### CI/CD Integration
-- GitHub Actions
-- GitLab CI
-- Jenkins
-- Cloud CI systems
+### With socratic-analyzer
+- Analyze code structure before extraction
+- Identify documentation gaps
+- Evaluate documentation completeness
 
-### Hosting Platforms
-- ReadTheDocs
-- GitHub Pages
-- Custom servers
-- CDN integration
+### With socratic-workflow
+- Integrate documentation generation into workflows
+- Schedule periodic documentation updates
+- Trigger documentation on code changes
+
+### With socratic-learning
+- Track documentation improvements
+- Learn from documentation patterns
+- Improve generation quality over time
+
+## Extension Points
+
+### Custom Extractors
+```python
+class CustomExtractor(CodeExtractor):
+    def extract_custom_info(self, source):
+        # Custom extraction logic
+        pass
+```
+
+### Custom Generators
+```python
+class CustomGenerator(DocumentationGenerator):
+    def generate_custom_format(self, code_info):
+        # Custom documentation generation
+        pass
+```
+
+### Custom Templates
+```python
+templates = {
+    "my_type": {
+        "structure": {...},
+        "files": {...}
+    }
+}
+```
+
+## Performance Characteristics
+
+- **Extraction**: O(n) where n = number of source files
+- **Generation**: O(m) where m = extracted elements
+- **Saving**: O(d) where d = number of documents
+- **Memory**: Depends on source code size
+
+## Error Handling
+
+- Input validation for all extractors
+- Graceful handling of parsing errors
+- Fallback for missing documentation
+- Clear error messages for failures
 
 ---
 
-Part of the Socratic Ecosystem
+Part of the Socratic Ecosystem | Modular Documentation Pipeline

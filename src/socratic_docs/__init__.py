@@ -14,7 +14,7 @@ from .git_repository_manager import GitRepositoryManager
 from .multi_file_splitter import MultiFileCodeSplitter
 from .project_templates import ProjectTemplateGenerator
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 __all__ = [
     "ArtifactSaver",
     "CodeExtractor",
