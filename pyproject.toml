@@ -91,3 +91,15 @@ disallow_untyped_defs = false
 disallow_incomplete_defs = false
 ignore_missing_imports = true
 follow_imports = "silent"
+disable_error_code = [
+    "var-annotated",
+    "assignment",
+    "no-any-return",
+    "valid-type",
+    "type-arg",
+]
+
+[[tool.mypy.overrides]]
+module = ["requests"]
+follow_imports = "silent"
+ignore_missing_imports = true

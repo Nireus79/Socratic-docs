@@ -12,7 +12,7 @@ from .documentation_generator import DocumentationGenerator
 from .git_initializer import GitInitializer
 from .git_repository_manager import GitRepositoryManager
 from .multi_file_splitter import MultiFileCodeSplitter
-from .project_templates import ProjectTemplate
+from .project_templates import ProjectTemplateGenerator
 
 __version__ = "0.2.0"
 __all__ = [
@@ -22,5 +22,5 @@ __all__ = [
     "GitInitializer",
     "GitRepositoryManager",
     "MultiFileCodeSplitter",
-    "ProjectTemplate",
+    "ProjectTemplateGenerator",
 ]
