@@ -17,7 +17,7 @@ class ValidationResult:
     warnings: List[str] = field(default_factory=list)
     line_number: Optional[int] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Ensure warnings is always a list"""
         if self.warnings is None:
             self.warnings = []
@@ -33,6 +33,6 @@ class ExtractionResult:
     was_markdown: bool = False
     code_blocks_found: int = 0
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         """ExtractionResult is truthy if code is valid"""
         return self.is_valid

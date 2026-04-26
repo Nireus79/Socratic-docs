@@ -289,7 +289,7 @@ class ArtifactSaver:
         lines = []
         lines.append(f"{Fore.CYAN}{project_root.name}/{Style.RESET_ALL}")
 
-        def add_tree(path: Path, prefix: str = "", is_last: bool = True):
+        def add_tree(path: Path, prefix: str = "", is_last: bool = True) -> None:
             """Recursively add directory tree"""
             if path.is_file():
                 connector = "└── " if is_last else "├── "
