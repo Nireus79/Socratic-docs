@@ -9,7 +9,7 @@ description = "Automated documentation generation for projects"
 readme = "README.md"
 license = "MIT"
 authors = [
-    {name = "Socratic Team", email = "team@socratic.dev"}
+    {name = "Efthimios Angelopoulos", email = "Hermes_creative@proton.me"}
 ]
 keywords = [
     "documentation",
